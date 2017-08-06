@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
-  before_action :authenticate_user!, only:[:new, :create, :destroy]
+  before_action :authenticate_user!, only:[:index, :new, :create, :destroy]
+  before_action :correct_user, only:[:new, :create, :destroy]
 
   def index
     @user = User.find(params[:user_id])
