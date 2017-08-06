@@ -1,0 +1,5 @@
+<div class="ui segment">
+  <h3><%= task.content %></h3>
+  <h3><%= task.dead_line %></h3>
+  <%= link_to "destroy", [user, task], method: :delete %>
+</div>

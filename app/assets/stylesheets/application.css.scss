@@ -17,11 +17,20 @@
 
 body {
   padding-top: 100px;
-  padding-bottom: 70px;
 }
 
-.field {
-  label {
-    cursor: pointer;
+.ui.inverted.menu{
+  .dropdown {
+    .menu {
+      .item {
+        a {
+          color: black;
+        }
+      }
+    }
   }
+}
+
+main {
+  padding-bottom: 70px;
 }

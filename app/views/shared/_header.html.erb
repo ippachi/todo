@@ -1,0 +1,25 @@
+<header class="ui fixed inverted menu">
+  <div class="ui container">
+  <div class="header item">
+    <%= link_to 'TODO', root_url, class: "header item"%>
+  </div>
+  <% if !user_signed_in? %>
+    <div class="right item">
+      <%= link_to 'sign up', new_user_registration_path, class: "item" %>
+      <%= link_to 'sign in', new_user_session_path, class: "item" %>
+    </div>
+  <% else %>
+    <div class="right item">
+      <div class="ui dropdown item">
+        <%= current_user.name %>
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          <div class="item"><%= link_to "tasks", user_tasks_path(current_user) %> </div>
+          <div class="item"><%= link_to "setting", edit_user_registration_path %> </div>
+          <div class="item"><%= link_to "sign out", destroy_user_session_path, method: :delete %> </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  </div>
+</header>

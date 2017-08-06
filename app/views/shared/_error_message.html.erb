@@ -1,0 +1,8 @@
+<% if !obj.errors.empty? %>
+  <div class="ui error message">
+      The form contains <%= pluralize(@task.errors.count, "error") %>.
+      <% obj.errors.full_messages.each do |e| %>
+        <li><%= e %></li>
+      <% end %>
+  </div>
+<% end %>

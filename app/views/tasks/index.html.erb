@@ -1,0 +1,9 @@
+<h1>Your tasks</h1>
+
+<%= link_to "create_new_task", new_user_task_path(current_user) %>
+
+<%= will_paginate @tasks, renderer: WillPaginateSemanticUi::ActionView::Renderer %>
+
+<%= render @tasks, user: @user %>
+
+<%= will_paginate @tasks, renderer: WillPaginateSemanticUi::ActionView::Renderer %>

@@ -4,9 +4,17 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def configure_permitted_parameters
-    added_attrs = [:name, :email, :password, :password_confirmation, :remember_me]
-    devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
-    devise_parameter_sanitizer.permit :account_update, keys: added_attrs
-  end
+    def configure_permitted_parameters
+      added_attrs = [:name, :email, :password, :password_confirmation, :remember_me]
+      devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
+      devise_parameter_sanitizer.permit :account_update, keys: added_attrs
+    end
+
+    def correct_user
+      user = current_user
+      if user.id != params[:user_id].to_i
+        flash[:error] = "Invaild user"
+        redirect_to root_url 
+      end
+    end
 end

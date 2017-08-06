@@ -1,5 +1,14 @@
 class Task < ApplicationRecord
   belongs_to :user
-  validates :title, presence: true, length:{maximum: 50}
   validates :content, presence: true, length:{minimum: 10}
+  validates :dead_limit, presence: true
+
+  def dead_line
+    dead_line = (dead_limit - Date.today).to_i
+    if dead_line < 0 
+      "already reach limit"
+    else
+      dead_line
+    end
+  end
 end

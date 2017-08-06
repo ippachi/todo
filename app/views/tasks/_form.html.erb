@@ -1,0 +1,15 @@
+<%= form_for [user, task], html:{class: "ui form segment"} do |f| %>
+  <div class="field">
+    <%= f.label :content %>
+    <%= f.text_field :content %>
+  </div>
+
+    <div class="field">
+    <%= f.label :dead_limit %>
+    <%= f.date_field :dead_limit %>
+  </div>
+
+  <div class="field">
+    <%= f.submit class: "ui button primary" %>
+  </div>
+<% end %>

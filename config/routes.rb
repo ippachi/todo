@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users
+
   resources :users do 
-    member do
-      get :tasks
-    end
+    resources :tasks
   end
+
+
   root 'home#index'
 end
