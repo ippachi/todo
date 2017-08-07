@@ -1,0 +1,14 @@
+<%= form_tag user_tasks_path , method: :put do %>
+  <% tasks.each do |task| %>
+    <%= fields_for "tasks[]", task do |f| %>
+
+      <%= f.label :done %>
+      <%= f.check_box :done %>
+    <% end %>
+
+    <%= task.content %>
+    <%= task.dead_line %>
+    <br />
+  <% end %>
+  <%= submit_tag %>
+<% end %>
