@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   before_action :set_user
 
   def index
-    @tasks = @user.tasks.paginate(page: params[:page], per_page: 10)
+    @tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.done = 0").order("dead_limit")
   end
 
   def new
