@@ -12,6 +12,17 @@ class TasksController < ApplicationController
     @task = @user.tasks.build
   end 
 
+  def update
+    @user = User.find(params[:user_id])
+    @task = tasks_params.each do |id, task_param|
+      @task = Task.find(id)
+      @task.update_attributes(task_param)
+      @task
+    end
+    flash[:success] = "Update your task"
+    redirect_to user_tasks_path
+  end
+
   def create
     @user = User.find(params[:user_id])
     @task = @user.tasks.build(task_params)
@@ -33,5 +44,9 @@ class TasksController < ApplicationController
   private
     def task_params
       params.require(:task).permit(:content, :dead_limit, :done)
+    end
+
+    def tasks_params
+      params.permit(tasks: [:done])[:tasks]
     end
 end
