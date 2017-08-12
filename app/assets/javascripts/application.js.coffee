@@ -14,8 +14,8 @@
 #= require jquery_ujs
 #= require rails-ujs
 # Loads all Semantic javascripts
-#= require semantic-ui
 #= require_tree .
+#= require semantic-ui
 #= require turbolinks
 
 $(document).on 'turbolinks:load', ->
@@ -24,7 +24,8 @@ $(document).on 'turbolinks:load', ->
 
   $('.ui.dropdown').dropdown()
 
-
+  $('.menu .item').tab()
+  
 #$(document).on('ready page:load'),function(){
 #  $('.message .close')
 #    .on('click', function() {

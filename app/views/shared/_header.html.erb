@@ -14,9 +14,9 @@
         <%= current_user.name %>
         <i class="dropdown icon"></i>
         <div class="menu">
-          <div class="item"><%= link_to "tasks", user_tasks_path(current_user) %> </div>
-          <div class="item"><%= link_to "setting", edit_user_registration_path %> </div>
-          <div class="item"><%= link_to "sign out", destroy_user_session_path, method: :delete %> </div>
+          <%= link_to "tasks", user_tasks_path(current_user), class: "item" %> 
+          <%= link_to "setting", edit_user_registration_path, class: "item" %> 
+          <%= link_to "sign out", destroy_user_session_path, method: :delete, class: "item" %> 
         </div>
       </div>
     </div>

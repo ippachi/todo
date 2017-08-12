@@ -13,13 +13,13 @@
     <%= render "shared/message" %>
     <%= render "shared/header" %>
 
-    <main class="main ui container">
-      <%= yield %>
-    </main>
+    <div class="<%= controller.controller_name %>">
+      <main class="main ui container ">
+        <%= yield %>
+      </main>
+    </div>
 
-    <%= render "shared/footer" %>
-
-    <%= debug params %>
+    <%= debug(params) %>
 
   </body>
 </html>

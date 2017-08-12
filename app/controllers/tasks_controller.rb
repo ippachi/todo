@@ -4,7 +4,8 @@ class TasksController < ApplicationController
   before_action :set_user
 
   def index
-    @tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.done = 0").order("dead_limit")
+    @unfinished_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.done = 0 and content like ?").order("dead_limit")
+    @finished_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.done = 1 and content like ?").order("dead_limit")
   end
 
   def new
@@ -35,6 +36,12 @@ class TasksController < ApplicationController
     @task = @user.tasks.find(params[:id])
     @task.destroy
     redirect_to user_tasks_path
+  end
+
+  def search
+    @unfinished_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.done = 0 and content like ?", "%"+params[:search]+"%").order("dead_limit")
+    @finished_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.done = 1 and content like ?", "%"+params[:search]+"%").order("dead_limit")
+    render "index"
   end
 
   private
