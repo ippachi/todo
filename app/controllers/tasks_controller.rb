@@ -4,8 +4,8 @@ class TasksController < ApplicationController
   before_action :set_user
 
   def index
-    @unfinished_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.done = 0 and content like ?").order("dead_limit")
-    @finished_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.done = 1 and content like ?").order("dead_limit")
+    @unfinished_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.done = 0").order("dead_limit")
+    @finished_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.done = 1").order("dead_limit")
   end
 
   def new
@@ -23,6 +23,7 @@ class TasksController < ApplicationController
   end
 
   def create
+    params[:task][:category] = params[:task][:category].to_i
     @task = @user.tasks.build(task_params)
     if @task.save
       flash[:success] = "Upload your task!"
@@ -46,7 +47,7 @@ class TasksController < ApplicationController
 
   private
     def task_params
-      params.require(:task).permit(:content, :dead_limit, :done)
+      params.require(:task).permit(:content, :dead_limit, :done, :category)
     end
 
     def tasks_params

@@ -4,9 +4,16 @@
     <%= f.text_field :content %>
   </div>
 
-  <div class="field">
-    <%= f.label :dead_limit %>
-    <%= f.date_field :dead_limit %>
+  <div class="two fields">
+    <div class="field">
+      <%= f.label :category %>
+      <%= f.select :category, Task.categories %>
+    </div>
+
+    <div class="field">
+      <%= f.label :dead_limit %>
+      <%= f.date_field :dead_limit %>
+    </div>
   </div>
 
   <div class="field">
