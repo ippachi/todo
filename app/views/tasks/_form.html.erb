@@ -7,7 +7,7 @@
   <div class="two fields">
     <div class="field">
       <%= f.label :category %>
-      <%= f.select :category, Task.categories %>
+      <%= f.select :category, Task.categories, {}, {class: "ui fluid dropdown"} %>
     </div>
 
     <div class="field">
