@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170805120502) do
+ActiveRecord::Schema.define(version: 20170812040720) do
 
   create_table "tasks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.boolean "done", default: false
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 20170805120502) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "dead_limit"
+    t.string "category", default: "None"
+    t.index ["category"], name: "index_tasks_on_category"
     t.index ["dead_limit"], name: "index_tasks_on_dead_limit"
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
