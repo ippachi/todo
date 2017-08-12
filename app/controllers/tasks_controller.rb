@@ -6,6 +6,9 @@ class TasksController < ApplicationController
   def index
     @unfinished_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.done = 0").order("dead_limit")
     @finished_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.done = 1").order("dead_limit")
+    @work_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.category = 1").order("tasks.done, dead_limit")
+    @study_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.category = 2").order("tasks.done, dead_limit")
+    @life_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.category = 3").order("tasks.done, dead_limit")
   end
 
   def new

@@ -7,6 +7,9 @@
 <div class="ui top attached tabular menu">
   <a class="item active" data-tab="first">TODO list</a>
   <a class="item" data-tab="second">Finished list</a>
+  <a class="item" data-tab="third">Work list</a>
+  <a class="item" data-tab="fourth">Study list</a>
+  <a class="item" data-tab="fifth">Life list</a>
 </div>
 
 <div class="task-list">
@@ -16,5 +19,17 @@
 
   <div class="ui bottom attached tab segment" data-tab="second">
     <%= render "task_list", tasks: @finished_tasks %>
+  </div>
+
+  <div class="ui bottom attached tab segment" data-tab="third">
+    <%= render "task_list", tasks: @work_tasks %>
+  </div>
+
+  <div class="ui bottom attached tab segment" data-tab="fourth">
+    <%= render "task_list", tasks: @study_tasks %>
+  </div>
+
+  <div class="ui bottom attached tab segment" data-tab="fifth">
+    <%= render "task_list", tasks: @life_tasks %>
   </div>
 </div>
