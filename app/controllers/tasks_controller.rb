@@ -45,6 +45,9 @@ class TasksController < ApplicationController
   def search
     @unfinished_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.done = 0 and content like ?", "%"+params[:search]+"%").order("dead_limit")
     @finished_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.done = 1 and content like ?", "%"+params[:search]+"%").order("dead_limit")
+    @work_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.category = 1 and content like ?", "%"+params[:search]+"%").order("dead_limit")
+    @study_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.category = 2 and content like ?", "%"+params[:search]+"%").order("dead_limit")
+    @life_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.category = 3 and content like ?", "%"+params[:search]+"%").order("dead_limit")
     render "index"
   end
 
