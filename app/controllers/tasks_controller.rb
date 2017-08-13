@@ -1,14 +1,10 @@
 class TasksController < ApplicationController
   before_action :authenticate_user!
-  before_action :correct_user
   before_action :set_user
+  before_action :set_task, only:[:edit, :update, :destroy]
+  before_action :set_tasks, only:[:index, :search]
 
   def index
-    @unfinished_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.done = 0").order("dead_limit")
-    @finished_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.done = 1").order("dead_limit")
-    @work_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.category = 1").order("tasks.done, dead_limit")
-    @study_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.category = 2").order("tasks.done, dead_limit")
-    @life_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.category = 3").order("tasks.done, dead_limit")
   end
 
   def new
@@ -16,7 +12,6 @@ class TasksController < ApplicationController
   end 
 
   def edit
-    @task = @user.tasks.find_by(id: params[:id])
   end
 
   def update
@@ -24,10 +19,26 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     if @task.update_attributes(task_params)
       flash[:success] = "Update your task!"
-      redirect_to user_tasks_path
+      redirect_to tasks_url
     else
       render 'new'
     end
+  end
+
+  def create
+    params[:task][:category] = params[:task][:category].to_i
+    @task = @user.tasks.build(task_params)
+    if @task.save
+      flash[:success] = "Upload your task!"
+      redirect_to tasks_url
+    else
+      render 'new'
+    end
+  end
+
+  def destroy
+    @task.destroy
+    redirect_to tasks_url
   end
 
   def update_state
@@ -37,32 +48,15 @@ class TasksController < ApplicationController
       @task
     end
     flash[:success] = "Update your task"
-    redirect_to user_tasks_path
-  end
-
-  def create
-    params[:task][:category] = params[:task][:category].to_i
-    @task = @user.tasks.build(task_params)
-    if @task.save
-      flash[:success] = "Upload your task!"
-      redirect_to user_tasks_path
-    else
-      render 'new'
-    end
-  end
-
-  def destroy
-    @task = @user.tasks.find(params[:id])
-    @task.destroy
-    redirect_to user_tasks_path
+    redirect_to tasks_url
   end
 
   def search
-    @unfinished_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.done = 0 and content like ?", "%"+params[:search]+"%").order("dead_limit")
-    @finished_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.done = 1 and content like ?", "%"+params[:search]+"%").order("dead_limit")
-    @work_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.category = 1 and content like ?", "%"+params[:search]+"%").order("dead_limit")
-    @study_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.category = 2 and content like ?", "%"+params[:search]+"%").order("dead_limit")
-    @life_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.category = 3 and content like ?", "%"+params[:search]+"%").order("dead_limit")
+    @unfinished_tasks = @unfinished_tasks.where("content like ?", "%"+params[:search]+"%")
+    @finished_tasks = @finished_tasks.where("content like ?", "%"+params[:search]+"%")
+    @work_tasks = @work_tasks.where("content like ?", "%"+params[:search]+"%")
+    @study_tasks = @study_tasks.where("content like ?", "%"+params[:search]+"%")
+    @life_tasks = @life_tasks.where("content like ?", "%"+params[:search]+"%")
     render "index"
   end
 
@@ -77,5 +71,21 @@ class TasksController < ApplicationController
 
     def set_user
       @user = current_user
+    end
+
+    def set_task
+      @task = @user.tasks.find_by(id: params[:id])
+      if @task.nil?
+        flash[:error] = "You don't have this task id"
+        redirect_to tasks_url
+      end
+    end
+    
+    def set_tasks
+      @unfinished_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.done = 0").order("dead_limit")
+      @finished_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.done = 1").order("dead_limit")
+      @work_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.category = 1").order("tasks.done, dead_limit")
+      @study_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.category = 2").order("tasks.done, dead_limit")
+      @life_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.category = 3").order("tasks.done, dead_limit")
     end
 end

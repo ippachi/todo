@@ -11,10 +11,5 @@ class ApplicationController < ActionController::Base
     end
 
     def correct_user
-      user = current_user
-      if user.id != params[:user_id].to_i
-        flash[:error] = "Invaild user"
-        redirect_to root_url 
-      end
     end
 end
