@@ -47,8 +47,15 @@ class TasksController < ApplicationController
       @task.update_attributes(task_param)
       @task
     end
-    flash[:success] = "Update your task"
-    redirect_to tasks_url
+    respond_to do |format|
+      format.html do
+        redirect_to tasks_url
+        flash[:success] = "Update your task"
+      end
+      format.js do
+        set_tasks
+      end
+    end
   end
 
   def search
@@ -57,7 +64,10 @@ class TasksController < ApplicationController
     @work_tasks = @work_tasks.where("content like ?", "%"+params[:search]+"%")
     @study_tasks = @study_tasks.where("content like ?", "%"+params[:search]+"%")
     @life_tasks = @life_tasks.where("content like ?", "%"+params[:search]+"%")
-    render "index"
+    respond_to do |format|
+      format.html { render "index" } 
+      format.js
+    end
   end
 
   private
@@ -82,10 +92,10 @@ class TasksController < ApplicationController
     end
     
     def set_tasks
-      @unfinished_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.done = 0").order("dead_limit")
-      @finished_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.done = 1").order("dead_limit")
-      @work_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.category = 1").order("tasks.done, dead_limit")
-      @study_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.category = 2").order("tasks.done, dead_limit")
-      @life_tasks = @user.tasks.paginate(page: params[:page], per_page: 10).where("tasks.category = 3").order("tasks.done, dead_limit")
+      @unfinished_tasks = @user.tasks.where("tasks.done = 0").order("dead_limit")
+      @finished_tasks = @user.tasks.where("tasks.done = 1").order("dead_limit")
+      @work_tasks = @user.tasks.where("tasks.category = 1").order("tasks.done, dead_limit")
+      @study_tasks = @user.tasks.where("tasks.category = 2").order("tasks.done, dead_limit")
+      @life_tasks = @user.tasks.where("tasks.category = 3").order("tasks.done, dead_limit")
     end
 end

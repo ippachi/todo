@@ -1,0 +1,19 @@
+<div class="ui bottom attached tab segment active" data-tab="first">
+  <%= render "task_list", tasks: @unfinished_tasks %>
+</div>
+
+<div class="ui bottom attached tab segment" data-tab="second">
+  <%= render "task_list", tasks: @finished_tasks %>
+</div>
+
+<div class="ui bottom attached tab segment" data-tab="third">
+  <%= render "task_list", tasks: @work_tasks %>
+</div>
+
+<div class="ui bottom attached tab segment" data-tab="fourth">
+  <%= render "task_list", tasks: @study_tasks %>
+</div>
+
+<div class="ui bottom attached tab segment" data-tab="fifth">
+  <%= render "task_list", tasks: @life_tasks %>
+</div>

@@ -1,8 +1,7 @@
 <% if tasks.empty? %>
   Nothing!!
 <% else %>
-  <%= will_paginate tasks, renderer: WillPaginateSemanticUi::ActionView::Renderer %>
-  <%= form_tag update_state_tasks_path , method: :put do %>
+  <%= form_tag update_state_tasks_path , method: :put, remote: true do %>
     <% tasks.each do |task| %>
       <% if task.dead_line == "already reach limit." %>
         <div class="ui field segment error message">
@@ -17,11 +16,11 @@
           </div>
         <% end %>
 
-        <p><%= task.dead_line %></p>
-        <p><%= task.content %></p>
-        <p><%= link_to "edit task", edit_task_path(task) %></p>
-        <p><%= link_to "delete task", task_path(task), method: :delete, data: {confirm: "Are you sure?"} %></p>
-      </div>
+          <p><%= task.dead_line %></p>
+          <p><%= task.content %></p>
+          <p><%= link_to "edit task", edit_task_path(task) %></p>
+          <p><%= link_to "delete task", task_path(task), method: :delete, data: {confirm: "Are you sure?"} %></p>
+        </div>
     <% end %>
     <%= submit_tag "save change",class: "ui button primary" %>
   <% end %>

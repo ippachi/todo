@@ -1,0 +1,22 @@
+<div class="ui top attached tabular menu">
+  <a class="item active" data-tab="first">
+    TODO list
+    <div class="ui grey circular label"><%= @unfinished_tasks.count %></div>
+  </a>
+  <a class="item" data-tab="second">
+    Finished list
+    <div class="ui grey circular label"><%= @finished_tasks.count %></div>
+  </a>
+  <a class="item" data-tab="third">
+    Work list
+    <div class="ui grey circular label"><%= @work_tasks.count %></div>
+  </a>
+  <a class="item" data-tab="fourth">
+    Study list
+    <div class="ui grey circular label"><%= @study_tasks.count %></div>
+  </a>
+  <a class="item" data-tab="fifth">
+    Life list
+    <div class="ui grey circular label"><%= @life_tasks.count %></div>
+  </a>
+</div>

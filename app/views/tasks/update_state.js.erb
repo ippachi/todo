@@ -1,0 +1,5 @@
+$("#task_list").html("<%= escape_javascript(render("tasks/all_tasks")) %>");
+$("#task_menu").html("<%= escape_javascript(render("tasks/task_menu")) %>");
+
+$('.menu .item').tab();
+
