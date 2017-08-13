@@ -15,7 +15,22 @@ class TasksController < ApplicationController
     @task = @user.tasks.build
   end 
 
+  def edit
+    @task = @user.tasks.find_by(id: params[:id])
+  end
+
   def update
+    params[:task][:category] = params[:task][:category].to_i
+    @task = Task.find(params[:id])
+    if @task.update_attributes(task_params)
+      flash[:success] = "Update your task!"
+      redirect_to user_tasks_path
+    else
+      render 'new'
+    end
+  end
+
+  def update_state
     @task = tasks_params.each do |id, task_param|
       @task = Task.find(id)
       @task.update_attributes(task_param)

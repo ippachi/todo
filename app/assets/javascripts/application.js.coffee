@@ -26,17 +26,3 @@ $(document).on 'turbolinks:load', ->
 
   $('.menu .item').tab()
   
-#$(document).on('ready page:load'),function(){
-#  $('.message .close')
-#    .on('click', function() {
-#      $(this)
-#        .closest('.message')
-#        .transition('fade')
-#      ;
-#    })
-#  ;
-#
-#  $('.ui.dropdown')
-#    .dropdown()
-#  ;
-#})
