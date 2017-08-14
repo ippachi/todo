@@ -22,7 +22,6 @@ gem 'semantic-ui-sass', '~> 2.2', '>= 2.2.11.0'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.1'
 gem 'faker', '~> 1.8', '>= 1.8.4'
 gem 'jquery-turbolinks', '~> 2.1'
-gem 'will_paginate_semantic_ui', '~> 2.1'
 gem 'config', '~> 1.4'
 
 group :development, :test do
