@@ -8,18 +8,24 @@
       <% else %>
         <div class="ui field segment">
       <% end %>
-        <%= fields_for "tasks[]", task do |f| %>
 
+        <%= fields_for "tasks[]", task do |f| %>
           <div class="field">
-            <%= f.label :done %>
             <%= f.check_box :done, class: "ui checkbox"%>
+            <span class="ui tag label"><%= task.category %></span>
+            <span class="ui circular label"><%= task.dead_line %></span> 
           </div>
         <% end %>
 
-          <p><%= task.dead_line %></p>
-          <p><%= task.content %></p>
-          <p><%= link_to "edit task", edit_task_path(task) %></p>
-          <p><%= link_to "delete task", task_path(task), method: :delete, data: {confirm: "Are you sure?"} %></p>
+          <div class="task_content">
+            <h4><%= task.content %></h4>
+            <%= link_to edit_task_path(task) do%>
+              <i class="edit icon"></i>edit
+            <% end %>
+            <%= link_to task_path(task), method: :delete, data: {confirm: "Are you sure?"}, class: "trash" do %>
+              <i class="trash outline icon"></i>destroy
+            <% end %>
+          </div>
         </div>
     <% end %>
     <%= submit_tag "save change",class: "ui button primary" %>
